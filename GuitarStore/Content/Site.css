@@ -45,12 +45,41 @@ span.ajaxmsg {
     top: 10px;
 }
 
+    .ajaxcart a {
+        text-decoration: none;
+        color: white;
+    }
+
+        .ajaxcart a:hover {
+            color: #2c3e50;
+        }
+
 .ib {
     display: inline-block !important;
 }
 
-ul.adminarea {
+.adminarea {
     position: relative;
     top: 15px;
 }
 
+    .adminarea a {
+        text-decoration: none;
+        color: white;
+    }
+
+        .adminarea a:hover {
+            color: #2c3e50;
+        }
+
+/*.bgImage {
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: url(Img/musical-instruments.jpg) no-repeat center center fixed;
+    background-size: cover;
+    opacity: 0.5;
+}*/

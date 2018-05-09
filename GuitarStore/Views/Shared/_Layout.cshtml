@@ -21,7 +21,7 @@
 
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    @Html.Action("PagesMenuPartial", "Pages");
+                    @Html.Action("PagesMenuPartial", "Pages")
                     @if (Request.IsAuthenticated)
                     {
                         <li><a href="/account/logout">Logout</a></li>
@@ -53,17 +53,18 @@
 
                 @if (Request.IsAuthenticated && User.IsInRole("Admin"))
                 {
-                    <ul class="navbar-right adminarea">
-                        <li>@Html.ActionLink("Admin Area", "Index", "Dashboard", new { area = "Admin" }, null)</li>
-                    </ul>
+
+                    <div class="navbar-right adminarea">
+                        @Html.ActionLink("Admin Area", "Index", "Dashboard", new { area = "Admin" }, null)
+                    </div>
                 }
                 else
                 {
                     if (ViewBag.Title != "Cart Details")
                     {
-                        <ul class="navbar-right">
-                            @Html.Action("CartPartial", "Cart");
-                        </ul>
+                        <div class="navbar-right">
+                            @Html.Action("CartPartial", "Cart")
+                        </div>
                     }
 
                 }
@@ -71,11 +72,11 @@
             </div>
         </div>
     </div>
-
     <div class="container body-content">
         <div class="row">
 
-            @if (ViewBag.Title != "Create Account" &&
+            @if (ViewBag.Title != "Categories" &&
+                ViewBag.Title != "Create Account" &&
                 ViewBag.Title != "Login" &&
                 ViewBag.Title != "User Profile" &&
                 ViewBag.Title != "Orders")
@@ -100,5 +101,4 @@
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
 </body>
-
 </html>
