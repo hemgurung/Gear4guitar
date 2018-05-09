@@ -1,0 +1,183 @@
+﻿@model IEnumerable<GuitarStore.Models.ViewModels.Shop.CategoryVM>
+
+@{
+    ViewBag.Title = "Categories";
+}
+
+<h2>Categories</h2>
+
+<div class="new-cat">
+    <input type="text" id="newcatname" />
+    <p>
+        <a href="#" id="newcata">Add a new Category</a>
+        <span class="ajax-text"><img src="~/Content/Img/ajax-loader.gif" /></span>
+    </p>
+</div>
+
+@if (!Model.Any())
+{
+    <h1 class="text-center">There are no categories</h1>
+}
+else
+{
+    <table id="pages" class="table sorting categories">
+        <tr class="home">
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr id="id_@item.Id">
+                <td>
+                    <div class="ajaxdivtd"></div>
+                    @Html.EditorFor(modelItem => item.Name, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                </td>
+                <td>
+                    @Html.ActionLink("Delete", "DeleteCategory", new { id = item.Id }, new { @class = "delete" })
+                </td>
+            </tr>
+        }
+    </table>
+}
+
+@section Scripts {
+
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+
+    <script>
+        $(function () {
+
+            // Add new category
+            var newCatA = $("a#newcata");
+            var newCatTextInput = $("#newcatname");
+            var ajaxText = $("span.ajax-text");
+            var table = $("table#pages tbody");
+
+            newCatTextInput.keyup(function (e) {
+                if (e.keyCode == 13) {      // 13 is keycode for Enter
+                    newCatA.click();
+                }
+            });
+
+            newCatA.click(function (e) {
+                e.preventDefault();     // Prevents anchor to act upon its href once clicked
+                var catName = newCatTextInput.val();
+                if (catName.length < 2) {
+                    alert("Category name must be at least 2 characters long.");
+                    return false;
+                }
+
+                ajaxText.show();
+                var url = "/admin/shop/AddNewCategory";
+
+                // Ajax call
+                $.post(url, { catName: catName }, function (data) {     // catName is an object with value catName
+                    var response = data.trim();
+                    if (response == "taken") {
+                        ajaxText.html("<span class='alert alert-danger'>That name is taken.</span>");
+
+                        setTimeout(function () {
+                            ajaxText.fadeOut("fast", function () {
+                                ajaxText.html("<img src=/Content/Img/ajax-loader.gif />")
+                            });
+                        }, 2000);
+
+                        return false;
+                    } else {
+                        if (!$("table#pages").length) {
+                            location.reload();      // Refreshes current page
+                        } else {
+                            ajaxText.html("<span class='alert alert-success'>The category has been added.</span>");
+                            setTimeout(function () {
+                                ajaxText.fadeOut("fast", function () {
+                                    ajaxText.html("<img src=/Content/Img/ajax-loader.gif />")
+                                });
+                            }, 2000);
+
+                            newCatTextInput.val("");
+                            var toAppend = $("table#pages tbody tr:last").clone();
+                            toAppend.attr("id", "id_" + data);
+                            toAppend.find("#item_Name").val(catName);
+                            toAppend.find("a.delete").attr("href", "/admin/shop/DeleteCategory/" + data);
+                            table.append(toAppend);
+                            table.sortable("refresh");
+                        }
+                    }
+                });
+            });
+
+            // Reorder category
+            $("table#pages tbody").sortable({
+                items: "tr:not(.home)",
+                placeholder: "ui-state-highlight",
+                update: function () {
+                    var ids = $("table#pages tbody").sortable("serialize");
+                    var url = "/admin/shop/ReorderCategories";
+
+                    $.post(url, ids, function (data) {
+                    });
+                }
+            });
+
+            // Delete Category
+            $("body").on("click", "a.delete", function () {
+                if (!confirm("Confirm category deletion")) return false;
+            });
+
+            // Rename category
+            var originalTxtBoxValue;
+
+            $("table#pages input.text-box").dblclick(function () {
+                originalTxtBoxValue = $(this).val();
+                $(this).attr("readonly", false);
+            });
+
+            $("table#pages input.text-box").keyup(function (e) {
+                if (e.keyCode == 13) {
+                    $(this).blur();
+                }
+            });
+
+            $("table#pages input.text-box").blur(function () {
+                var $this = $(this);
+                var ajaxdiv = $this.parent().find(".ajaxdivtd");
+                var newCatName = $this.val();
+
+                // Double parent to get upto Tr and substring to remove first 3 characters which are 'id_'
+                var id = $this.parent().parent().attr("id").substring(3);
+                var url = "/admin/shop/RenameCategory";
+
+                if (newCatName.length < 2) {
+                    alert("Category name must be at least 2 characters long.");
+                    $this.attr("readonly", true);
+                    return false;
+                }
+
+                $.post(url, { newCatName: newCatName, id: id }, function (data) {
+                    var response = data.trim();
+
+                    if (response == "taken") {
+                        $this.val(originalTxtBoxValue);
+
+                        // Since ajaxdiv is meant to fadeout later show() method is used to show it if hidden
+                        ajaxdiv.html("<span class='alert alert-danger'>That name is taken.</span>").show();
+                    } else {
+                        ajaxdiv.html("<span class='alert alert-success'>The category name has been changed.</span>").show();
+                    }
+
+                    setTimeout(function () {
+                        ajaxdiv.fadeOut("fast", function () {
+                            ajaxdiv.html("");
+                        });
+                    }, 2000);
+
+                }).done(function () {
+                    $this.attr("readonly", true); // Reset readonly attribute
+                });
+            });
+        });
+    </script>
+}
+

@@ -1,0 +1,5 @@
+﻿@model GuitarStore.Models.ViewModels.Cart.CartVM
+
+<span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> £@Model.Price [@Model.Quantity Items]
+<br />
+@Html.ActionLink("Checkout", "Index")
