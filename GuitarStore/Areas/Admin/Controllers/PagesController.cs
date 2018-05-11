@@ -17,7 +17,6 @@ namespace GuitarStore.Areas.Admin.Controllers
             // Declare list of PageVM
             List<PageVM> pagesList;
 
-
             using (Db db = new Db())
             {
                 // Init the list
@@ -27,6 +26,7 @@ namespace GuitarStore.Areas.Admin.Controllers
                             .Select(x => new PageVM(x))
                             .ToList();
             }
+
             // Return view with list
             return View(pagesList);
         }
@@ -52,7 +52,7 @@ namespace GuitarStore.Areas.Admin.Controllers
                 // Declare slug
                 string slug;
 
-                // Init pageDTO
+                // Init PageDTO
                 PageDTO dto = new PageDTO();
 
                 // DTO title
@@ -95,7 +95,7 @@ namespace GuitarStore.Areas.Admin.Controllers
         // GET: Admin/Pages/EditPage/id
         public ActionResult EditPage(int id)
         {
-            // Declare pageVM
+            // Declare PageVM
             PageVM model;
 
             using (Db db = new Db())
@@ -109,7 +109,7 @@ namespace GuitarStore.Areas.Admin.Controllers
                     return Content("The page does not exist.");
                 }
 
-                // Init pageVM
+                // Init PageVM
                 model = new PageVM(dto);
             }
 
@@ -169,7 +169,6 @@ namespace GuitarStore.Areas.Admin.Controllers
                 // Save the DTO
                 db.SaveChanges();
             }
-
 
             // Set tempData message
             TempData["SM"] = "You have edited the page.";
@@ -238,7 +237,8 @@ namespace GuitarStore.Areas.Admin.Controllers
                 foreach (var pageId in id)
                 {
                     dto = db.Pages.Find(pageId);
-                    // arranges item by sorting value given in drag and drop function
+
+                    // Arranges item by sorting value given in drag and drop function
                     dto.Sorting = count;
                     db.SaveChanges();
                     count++;

@@ -22,6 +22,16 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     @Html.Action("PagesMenuPartial", "Pages")
+
+                    @if (ViewBag.Title == "AllProducts")
+                    {
+                        <li class="active"><a href="/shop/allproducts">Products</a></li>
+                    }
+                    else
+                    {
+                        <li><a href="/shop/allproducts">Products</a></li>
+                    }
+
                     @if (Request.IsAuthenticated)
                     {
                         <li><a href="/account/logout">Logout</a></li>
@@ -72,14 +82,29 @@
             </div>
         </div>
     </div>
+
+    @using (Html.BeginForm("Search", "Shop", FormMethod.Get))
+    {
+        <div class="searchProduct">
+            @Html.TextBox("SearchString")
+            &nbsp;
+            <input type="submit" value="Search" class="btn btn-primary" />
+        </div>
+        if (TempData["SM"] != null)
+        {
+            <div class="text-center alert alert-success">
+                @TempData["SM"]
+            </div>
+        }
+    }
+
     <div class="container body-content">
         <div class="row">
-
-            @if (ViewBag.Title != "Categories" &&
-                ViewBag.Title != "Create Account" &&
-                ViewBag.Title != "Login" &&
-                ViewBag.Title != "User Profile" &&
-                ViewBag.Title != "Orders")
+            @if (ViewBag.Title != "Home" &&
+                     ViewBag.Title != "Categories" &&
+                     ViewBag.Title != "Create Account" &&
+                     ViewBag.Title != "Login" &&
+                     ViewBag.Title != "User Profile")
             {
                 <div class="col-xs-12 col-md-2">
                     @Html.Action("CategoryMenuPartial", "Shop")
@@ -90,12 +115,12 @@
                 @RenderBody()
             </div>
         </div>
-        <hr />
-
-        <footer>
-            <p>&copy; @DateTime.Now.Year - Hem Kumar Gurung</p>
-        </footer>
     </div>
+    <hr />
+
+    <footer>
+        <p class="text-center">&copy; @DateTime.Now.Year - Hem Kumar Gurung</p>
+    </footer>
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")

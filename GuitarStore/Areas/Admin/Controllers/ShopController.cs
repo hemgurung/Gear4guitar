@@ -17,7 +17,7 @@ namespace GuitarStore.Areas.Admin.Controllers
         // GET: Admin/Shop/Categories
         public ActionResult Categories()
         {
-            // Declare list of CategoryVM
+            // Declare list of models
             List<CategoryVM> categoriesList;
 
             using (Db db = new Db())
@@ -36,7 +36,7 @@ namespace GuitarStore.Areas.Admin.Controllers
         [HttpPost]
         public string AddNewCategory(string catName)
         {
-            // Declare category id
+            // Declare id
             string id;
 
             using (Db db = new Db())
@@ -77,7 +77,8 @@ namespace GuitarStore.Areas.Admin.Controllers
                 foreach (var catId in id)
                 {
                     dto = db.Categories.Find(catId);
-                    // arranges item by sorting value given in drag and drop function
+
+                    // Arranges item by sorting value given in drag and drop function
                     dto.Sorting = count;
                     db.SaveChanges();
                     count++;
@@ -92,9 +93,7 @@ namespace GuitarStore.Areas.Admin.Controllers
             {
                 // Get the category
                 CategoryDTO dto = db.Categories.Find(id);
-
                 db.Categories.Remove(dto);
-
                 db.SaveChanges();
             }
             return RedirectToAction("Categories");
@@ -116,18 +115,16 @@ namespace GuitarStore.Areas.Admin.Controllers
                 // Edit DTO
                 dto.Name = newCatName;
                 dto.Slug = newCatName.Replace(" ", "-").ToLower();
-
                 db.SaveChanges();
             }
 
-            // Return
             return "ok";
         }
 
         // GET: Admin/Shop/AddProduct
         public ActionResult AddProduct()
         {
-            // Init ProductVM
+            // Init model
             ProductVM model = new ProductVM();
 
             // Add select list of categories to model
@@ -165,7 +162,7 @@ namespace GuitarStore.Areas.Admin.Controllers
             // Declare product id
             int id;
 
-            // Init and save product DTO
+            // Init and save ProductDTO
             using (Db db = new Db())
             {
                 ProductDTO product = new ProductDTO();
@@ -188,6 +185,7 @@ namespace GuitarStore.Areas.Admin.Controllers
             TempData["SM"] = "You have added a product.";
 
             #region Upload Image
+
             // Create necessary directories
             var originalDirectory = new DirectoryInfo(string.Format("{0}Images\\Uploads", Server.MapPath(@"\")));
 
@@ -234,11 +232,10 @@ namespace GuitarStore.Areas.Admin.Controllers
                 string imageName = file.FileName;
 
                 // Save image name to DTO
-                using (Db db=new Db())
+                using (Db db = new Db())
                 {
                     ProductDTO dto = db.Products.Find(id);
                     dto.ImageName = imageName;
-
                     db.SaveChanges();
                 }
 
@@ -268,7 +265,7 @@ namespace GuitarStore.Areas.Admin.Controllers
             // Set page number
             var pageNumber = page ?? 1; // If no page was specified in the querystring, defaults to the first page (1)
 
-            using (Db db=new Db())
+            using (Db db = new Db())
             {
                 // Init the list
                 listOfProductVM = db.Products.ToArray()
@@ -277,14 +274,16 @@ namespace GuitarStore.Areas.Admin.Controllers
                                   .ToList();
 
                 // Populate categories select list
-                ViewBag.Categories = new SelectList(db.Categories.ToList(), "Id", "Name");  // Viewbag is used to prevent displaying list for each model in the list
+                // Viewbag is used to prevent displaying list for each model in the list
+                ViewBag.Categories = new SelectList(db.Categories.ToList(), "Id", "Name");
 
                 // Set selected category
                 ViewBag.SelectedCat = catId.ToString();
             }
 
             // Set pagination
-            var onePageOfProducts = listOfProductVM.ToPagedList(pageNumber, 6); // Will only contain 6 products max because of the pageSize     
+            // Will only contain 6 products max because of the pageSize   
+            var onePageOfProducts = listOfProductVM.ToPagedList(pageNumber, 6);
             ViewBag.OnePageOfProducts = onePageOfProducts;
 
             return View(listOfProductVM);
@@ -293,10 +292,10 @@ namespace GuitarStore.Areas.Admin.Controllers
         // GET: Admin/Shop/EditProduct/id
         public ActionResult EditProduct(int id)
         {
-            // Declare productVM
+            // Declare ProductVM
             ProductVM model;
 
-            using (Db db=new Db())
+            using (Db db = new Db())
             {
                 // Get the product
                 ProductDTO dto = db.Products.Find(id);
@@ -328,7 +327,7 @@ namespace GuitarStore.Areas.Admin.Controllers
             int id = model.Id;
 
             // Populate categories select list and gallery images
-            using (Db db=new Db())
+            using (Db db = new Db())
             {
                 model.Categories = new SelectList(db.Categories.ToList(), "Id", "Name");
             }
@@ -341,9 +340,9 @@ namespace GuitarStore.Areas.Admin.Controllers
             }
 
             // Make sure product name is unique
-            using (Db db=new Db())
+            using (Db db = new Db())
             {
-                if(db.Products.Where(x=>x.Id != id).Any(x => x.Name == model.Name))
+                if (db.Products.Where(x => x.Id != id).Any(x => x.Name == model.Name))
                 {
                     ModelState.AddModelError("", "That product already exist.");
                     return View(model);
@@ -351,7 +350,7 @@ namespace GuitarStore.Areas.Admin.Controllers
             }
 
             // Update product
-            using (Db db=new Db())
+            using (Db db = new Db())
             {
                 ProductDTO dto = db.Products.Find(id);
                 dto.Name = model.Name;
@@ -370,6 +369,7 @@ namespace GuitarStore.Areas.Admin.Controllers
             TempData["SM"] = "You have edited the product.";
 
             #region Image Upload
+
             // Check if a file was uploaded
             if (file != null && file.ContentLength > 0)
             {
@@ -409,7 +409,7 @@ namespace GuitarStore.Areas.Admin.Controllers
 
                 // Save image name to DTO
                 string imageName = file.FileName;
-               
+
                 using (Db db = new Db())
                 {
                     ProductDTO dto = db.Products.Find(id);
@@ -438,8 +438,8 @@ namespace GuitarStore.Areas.Admin.Controllers
         // GET: Admin/Shop/DeleteProduct/id
         public ActionResult DeleteProduct(int id)
         {
-            // Delete product from db
-            using (Db db=new Db())
+            // Delete product from database
+            using (Db db = new Db())
             {
                 ProductDTO dto = db.Products.Find(id);
                 db.Products.Remove(dto);
@@ -469,7 +469,7 @@ namespace GuitarStore.Areas.Admin.Controllers
                 HttpPostedFileBase file = Request.Files[fileName];
 
                 // Check it's not null
-                if(file!=null && file.ContentLength > 0)
+                if (file != null && file.ContentLength > 0)
                 {
                     // Set directory paths
                     var originalDirectory = new DirectoryInfo(string.Format("{0}Images\\Uploads", Server.MapPath(@"\")));
@@ -494,7 +494,7 @@ namespace GuitarStore.Areas.Admin.Controllers
 
         //POST: Admin/Shop/DeleteImage
         [HttpPost]
-        public void DeleteImage(int id,string imageName)
+        public void DeleteImage(int id, string imageName)
         {
             string fullPath1 = Request.MapPath("~/Images/Uploads/Products/" + id.ToString() + "/Gallery/" + imageName);
             string fullPath2 = Request.MapPath("~/Images/Uploads/Products/" + id.ToString() + "/Gallery/Thumbs/" + imageName);

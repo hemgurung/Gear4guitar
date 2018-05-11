@@ -6,43 +6,57 @@
 
 <h2>@ViewBag.CategoryName</h2>
 
-<table class="table">
-    <tr>
-        <th>
-            Name
-        </th>
-        <th>
-            Price
-        </th>
-        <th>
-            Brand
-        </th>
-        <th>
-            Image
-        </th>
-    </tr>
-
+<div class="container row">
     @foreach (var item in Model)
     {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                £@Html.DisplayFor(modelItem => item.Price)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Brand)
-            </td>
-            <td>
-                <a href="/shop/product-details/@item.Slug">
-                    <img src="/Images/Uploads/Products/@item.Id/Thumbs/@item.ImageName" />
-                </a>
-            </td>
-            <td>
-                <a href="/shop/product-details/@item.Slug">Details</a>
-            </td>
-        </tr>
+        <div class="col-md-4">
+            <a href="/shop/product-details/@item.Slug">
+                <img src="/Images/Uploads/Products/@item.Id/Thumbs/@item.ImageName" /><br />
+                @Html.DisplayFor(modelItem => item.Name)<br />
+            </a>
+            £@Html.DisplayFor(modelItem => item.Price)
+            <br />
+            <br />
+        </div>
     }
+</div>
 
-</table>
+@*<table class="table">
+        <tr>
+            <th>
+                Name
+            </th>
+            <th>
+                Price
+            </th>
+            <th>
+                Brand
+            </th>
+            <th>
+                Image
+            </th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    £@Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Brand)
+                </td>
+                <td>
+                    <a href="/shop/product-details/@item.Slug">
+                        <img src="/Images/Uploads/Products/@item.Id/Thumbs/@item.ImageName" />
+                    </a>
+                </td>
+                <td>
+                    <a href="/shop/product-details/@item.Slug">Details</a>
+                </td>
+            </tr>
+        }
+    </table>*@

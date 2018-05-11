@@ -17,7 +17,7 @@ namespace GuitarStore.Controllers
             return Redirect("~/account/login");
         }
 
-        // GET: /account/login
+        // GET: account/login
         public ActionResult Login()
         {
             // Confirm user is not logged in
@@ -28,7 +28,7 @@ namespace GuitarStore.Controllers
             return View();
         }
 
-        // POST: /account/login
+        // POST: account/login
         [HttpPost]
         public ActionResult Login(LoginUserVM model)
         {
@@ -57,14 +57,14 @@ namespace GuitarStore.Controllers
             }
         }
 
-        // GET: /account/create-account
+        // GET: account/create-account
         [ActionName("create-account")]
         public ActionResult CreateAccount()
         {
             return View("CreateAccount");
         }
 
-        // POST: /account/create-account
+        // POST: account/create-account
         [HttpPost, ActionName("create-account")]
         public ActionResult CreateAccount(UserVM model)
         {
@@ -121,7 +121,7 @@ namespace GuitarStore.Controllers
             return Redirect("~/account/login");
         }
 
-        // GET: /account/logout
+        // GET: account/logout
         [Authorize]
         public ActionResult Logout()
         {
@@ -153,9 +153,8 @@ namespace GuitarStore.Controllers
             return PartialView(model);
         }
 
-        // GET: /account/user-profile
-        [ActionName("user-profile")]
-        [Authorize]
+        // GET: account/user-profile
+        [ActionName("user-profile"), Authorize]
         public ActionResult UserProfile()
         {
             // Get username
@@ -181,9 +180,8 @@ namespace GuitarStore.Controllers
             return View("UserProfile", model);
         }
 
-        // POST: /account/user-profile
-        [HttpPost, ActionName("user-profile")]
-        [Authorize]
+        // POST: account/user-profile
+        [HttpPost, ActionName("user-profile"), Authorize]
         public ActionResult UserProfile(UserProfileVM model)
         {
             // Check model state

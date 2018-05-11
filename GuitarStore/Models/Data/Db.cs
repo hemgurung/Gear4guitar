@@ -14,5 +14,7 @@ namespace GuitarStore.Models.Data
         public DbSet<UserDTO> Users { get; set; }
         public DbSet<RoleDTO> Roles { get; set; }
         public DbSet<UserRoleDTO> UserRoles { get; set; }
+
+        public System.Data.Entity.DbSet<GuitarStore.Models.ViewModels.Shop.ProductVM> ProductVMs { get; set; }
     }
 }

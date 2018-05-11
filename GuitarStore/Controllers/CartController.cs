@@ -121,7 +121,7 @@ namespace GuitarStore.Controllers
             return PartialView(model);
         }
 
-        // GET: /cart/IncrementProduct
+        // GET: Cart/IncrementProduct
         public JsonResult IncrementProduct(int productId)
         {
             // Init cart list
@@ -143,13 +143,13 @@ namespace GuitarStore.Controllers
             }
         }
 
-        // GET: /cart/DecrementProduct
+        // GET: Cart/DecrementProduct
         public ActionResult DecrementProduct(int productId)
         {
             // Init cart list
             List<CartVM> cart = Session["cart"] as List<CartVM>;
 
-            using (Db db=new Db())
+            using (Db db = new Db())
             {
                 // Get model from list
                 CartVM model = cart.FirstOrDefault(x => x.ProductId == productId);
@@ -171,13 +171,13 @@ namespace GuitarStore.Controllers
             }
         }
 
-        // GET: /cart/RemoveProduct
+        // GET: Cart/RemoveProduct
         public void RemoveProduct(int productId)
         {
             // Initialize cart list
             List<CartVM> cart = Session["cart"] as List<CartVM>;
 
-            using (Db db=new Db())
+            using (Db db = new Db())
             {
                 // Get model from list
                 CartVM model = cart.FirstOrDefault(x => x.ProductId == productId);

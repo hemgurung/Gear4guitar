@@ -51,7 +51,7 @@ namespace GuitarStore.Controllers
             List<PageVM> pageVMList;
 
             // Get all pages except home
-            using (Db db=new Db())
+            using (Db db = new Db())
             {
                 pageVMList = db.Pages.ToArray()
                              .OrderBy(x => x.Sorting)
