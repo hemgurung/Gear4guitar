@@ -180,7 +180,10 @@
     <Content Include="Content\fancybox\fancybox_sprite%402x.png" />
     <Content Include="Content\fancybox\fancybox_sprite.png" />
     <Content Include="Content\Img\ajax-loader.gif" />
+    <Content Include="Content\Img\banner.jpg" />
     <Content Include="Content\Img\dashboard-image.jpg" />
+    <Content Include="Content\Img\home-image.jpeg" />
+    <Content Include="guitar_pxp_icon.ico" />
     <Content Include="Content\jquery.fancybox-buttons.css" />
     <Content Include="Content\jquery.fancybox-thumbs.css" />
     <Content Include="Content\jquery.fancybox.css" />
@@ -213,6 +216,7 @@
     <Content Include="Scripts\ckeditor\ckeditor_php4.php" />
     <Content Include="Scripts\ckeditor\ckeditor.php" />
     <Content Include="Scripts\ckeditor\ckeditor.pack" />
+    <None Include="Properties\PublishProfiles\Hem.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\ckeditor\ckeditor_source.js" />
     <Content Include="Scripts\ckeditor\config.js" />

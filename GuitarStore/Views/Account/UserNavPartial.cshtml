@@ -1,3 +1,10 @@
 ﻿@model GuitarStore.Models.ViewModels.Account.UserNavPartialVM
 
-<a href="/account/user-profile">(@Model.FirstName @Model.LastName)</a>
+@if (Model.FirstName == "Guest" || Model.LastName == "Guest")
+{
+    <a href="/account/user-profile">(@Model.FirstName)</a>
+}
+else
+{
+    <a href="/account/user-profile">(@Model.FirstName @Model.LastName)</a>
+}
