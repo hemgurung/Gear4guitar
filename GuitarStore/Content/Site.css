@@ -1,5 +1,32 @@
-﻿
+﻿/*PARALLAX*/
+body, html {
+    height: 100%;
+}
+
+.parallax {
+    position: relative;
+    background-image: url('Img/home-image.jpeg');
+    height: 100%;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.intro {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
 /*--------------------------CUSTOM STYLES-------------------------------*/
+
+div > img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
 
 table.sorting tr:not(.home) {
     cursor: pointer;
@@ -39,6 +66,10 @@ span.ajaxmsg {
     bottom: 0;
 }
 
+.ib {
+    display: inline-block !important;
+}
+
 .ajaxcart {
     position: relative;
     top: 10px;
@@ -53,28 +84,33 @@ span.ajaxmsg {
             color: #2c3e50;
         }
 
-.ib {
-    display: inline-block !important;
+.adminarea a {
+    text-decoration: none;
+    color: white;
 }
 
-.adminarea {
-    position: relative;
-    top: 15px;
-}
-
-    .adminarea a {
-        text-decoration: none;
-        color: white;
+    .adminarea a:hover {
+        color: #2c3e50;
     }
 
-        .adminarea a:hover {
-            color: #2c3e50;
-        }
+.navbar {
+    margin-bottom: 0;
+}
 
-.searchProduct {
+.searcharea {
     float: right;
     margin-right: 10px;
 }
 
 
+@media only screen and (min-width: 1024px) {
+    .banner {
+        position: relative;
+    }
 
+    .searcharea {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+    }
+}

@@ -139,6 +139,8 @@ namespace GuitarStore.Areas.Admin.Controllers
         [HttpPost]
         public ActionResult AddProduct(ProductVM model, HttpPostedFileBase file)
         {
+            
+
             // Check model state
             if (!ModelState.IsValid)
             {
@@ -323,6 +325,8 @@ namespace GuitarStore.Areas.Admin.Controllers
         [HttpPost]
         public ActionResult EditProduct(ProductVM model, HttpPostedFileBase file)
         {
+            
+
             // Get product id
             int id = model.Id;
 

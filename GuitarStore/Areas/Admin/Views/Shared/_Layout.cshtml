@@ -3,6 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="~/guitar_pxp_icon.ico" rel="shortcut icon" type="image/x-icon" />
     <title>@ViewBag.Title - Admin Area</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
@@ -25,11 +26,12 @@
                     <li><a href="/admin/shop/products">Products</a></li>
                 </ul>
                 <div class="navbar-right">
-                    <a href="/" class="navbar-brand">Gear4Guitar</a>
+                    <a href="/" class="navbar-brand">Gear4guitar</a>
                 </div>
             </div>
         </div>
     </div>
+
     <div class="container body-content">
         @RenderBody()
         <hr />

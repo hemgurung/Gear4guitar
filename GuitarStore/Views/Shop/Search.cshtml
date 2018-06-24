@@ -6,10 +6,10 @@
 
 <h2>Search Results</h2>
 
-<div class="container row">
+<div class="row">
     @foreach (var item in Model)
     {
-        <div class="col-md-4">
+        <div class="col-md-4 text-center">
             <a href="/shop/product-details/@item.Slug">
                 <img src="/Images/Uploads/Products/@item.Id/Thumbs/@item.ImageName" /><br />
                 @Html.DisplayFor(modelItem => item.Name)<br />

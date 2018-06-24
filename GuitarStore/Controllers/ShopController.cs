@@ -87,6 +87,7 @@ namespace GuitarStore.Controllers
                 model = new ProductVM(dto);
             }
 
+            
             // Get gallery images
             model.GalleryImages = Directory.EnumerateFiles(Server.MapPath("~/Images/Uploads/Products/" + id + "/Gallery/Thumbs"))
                                               .Select(fn => Path.GetFileName(fn));

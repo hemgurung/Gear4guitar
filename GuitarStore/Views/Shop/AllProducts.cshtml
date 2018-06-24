@@ -6,10 +6,11 @@
 
 <h2>All Products</h2>
 
-<div class="container row">
+@*Do not add container class as it will merge with container from main layout and increase window width*@
+<div class="row">
     @foreach (var item in Model)
     {
-        <div class="col-md-4">
+        <div class="col-md-4 text-center">
             <a href="/shop/product-details/@item.Slug">
                 <img src="/Images/Uploads/Products/@item.Id/Thumbs/@item.ImageName" /><br />
                 @Html.DisplayFor(modelItem => item.Name)<br />
