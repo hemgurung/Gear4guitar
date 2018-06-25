@@ -89,15 +89,12 @@
         }
         @using (Html.BeginForm("Search", "Shop", FormMethod.Get))
         {
-
             <div class="searcharea">
                 @Html.TextBox("SearchString")
                 <button type="submit" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
             </div>
         }
     </div>
-
-
 
     <div class="container body-content">
         <div class="row">
@@ -112,6 +109,7 @@
                     @Html.Action("CategoryMenuPartial", "Shop")
                 </div>
             }
+
             <hr />
             <div class="col-xs-12 col-md-10">
                 @RenderBody()
@@ -123,13 +121,10 @@
     {
         <div class="parallax">
             <div class="intro text-center">
-                <h1 class="display-3" style="font-family: 'Pacifico', cursive; color:white">
-                    Find the right tone for you
-                </h1>
-                <br />
-                <p class="lead">
-                    <a class="btn btn-success" href="http://thehub.musiciansfriend.com/guitar-buying-guides/" target="_blank" role="button">Learn More</a>
-                </p>
+                <h3 class="display-3" style="font-family: 'Pacifico', cursive; color:white">
+                    "I believe every guitar player inherently has something unique about their playing.
+                    They just have to identify what makes them different and develop it."<br />-Jimmy Page
+                </h3>
             </div>
         </div>
     }
