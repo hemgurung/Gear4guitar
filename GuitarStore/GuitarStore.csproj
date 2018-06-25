@@ -182,6 +182,7 @@
     <Content Include="Content\Img\ajax-loader.gif" />
     <Content Include="Content\Img\banner.jpg" />
     <Content Include="Content\Img\dashboard-image.jpg" />
+    <Content Include="Content\Img\default.png" />
     <Content Include="Content\Img\home-image.jpeg" />
     <Content Include="guitar_pxp_icon.ico" />
     <Content Include="Content\jquery.fancybox-buttons.css" />

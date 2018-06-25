@@ -11,7 +11,14 @@
     {
         <div class="col-md-4 text-center">
             <a href="/shop/product-details/@item.Slug">
+               @if (!string.IsNullOrEmpty(item.ImageName))
+                {
                 <img src="/Images/Uploads/Products/@item.Id/Thumbs/@item.ImageName" /><br />
+               }
+               else
+               {
+                <img src="@Url.Content("~/Content/Img/default.png")" /><br />
+               }
                 @Html.DisplayFor(modelItem => item.Name)<br />
             </a>
             £@Html.DisplayFor(modelItem => item.Price)

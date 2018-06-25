@@ -59,7 +59,14 @@
             </td>
             <td>
                 <a href="/admin/shop/editproduct/@product.Id">
-                    <img src="/Images/Uploads/Products/@product.Id/Thumbs/@product.ImageName" />
+                    @if (!string.IsNullOrEmpty(product.ImageName))
+                    {
+                        <img src="/Images/Uploads/Products/@product.Id/Thumbs/@product.ImageName" />
+                    }
+                    else
+                    {
+                        <img src="@Url.Content("~/Content/Img/default.png")" />
+                    }
                 </a>
             </td>
             <td>

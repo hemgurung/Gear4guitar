@@ -38,6 +38,7 @@ namespace GuitarStore.Models.ViewModels.Shop
         public int CategoryId { get; set; }
         public string ImageName { get; set; }
 
+
         public IEnumerable<SelectListItem> Categories { get; set; }
         public IEnumerable<string> GalleryImages { get; set; }
     }
