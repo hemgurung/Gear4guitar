@@ -50,7 +50,14 @@ else
                     £@Html.DisplayFor(modelItem => item.Price)
                 </td>
                 <td>
-                    <img src="/Images/Uploads/Products/@item.ProductId/Thumbs/@item.Image" />
+                    @if (!string.IsNullOrEmpty(item.Image))
+                    {
+                        <img src="/Images/Uploads/Products/@item.ProductId/Thumbs/@item.Image" />
+                    }
+                    else
+                    {
+                        <img src="@Url.Content("~/Content/Img/default.png")" />
+                    }
                 </td>
                 <td>
                     <a href="#" class="incrproduct" data-id="@item.ProductId">+</a>
@@ -100,7 +107,7 @@ else
                 });
             });
 
-            // Decremt product
+            // Decrement product
             $("a.decrproduct").click(function (e) {
                 e.preventDefault();
                 var $this = $(this);
@@ -143,9 +150,9 @@ else
             // Place Order
             $("a.placeorder").click(function (e) {
                 e.preventDefault();
-                
+
                 alert("Thank you for your order. We will be in touch when they are ready for collection.");
-                
+                location.reload();
 
             });
 
