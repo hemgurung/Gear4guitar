@@ -6,6 +6,13 @@
 
 <h2>Categories</h2>
 
+@if (TempData["DeletionError"] != null && (bool)TempData["DeletionError"])
+{
+    <div class="alert alert-info alert-dismissible text-center">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>@TempData["MyErrorMessage"]
+    </div>
+}
+
 <div class="new-cat">
     <input type="text" id="newcatname" />
     <p>

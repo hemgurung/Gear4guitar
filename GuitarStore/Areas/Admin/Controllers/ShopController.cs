@@ -17,6 +17,7 @@ namespace GuitarStore.Areas.Admin.Controllers
         // GET: Admin/Shop/Categories
         public ActionResult Categories()
         {
+            ViewBag.MyErrorMessage = ""; //For category delete alert message
             // Declare list of models
             List<CategoryVM> categoriesList;
 
@@ -91,10 +92,20 @@ namespace GuitarStore.Areas.Admin.Controllers
         {
             using (Db db = new Db())
             {
-                // Get the category
-                CategoryDTO dto = db.Categories.Find(id);
-                db.Categories.Remove(dto);
-                db.SaveChanges();
+                //only allow delete if there are no products associated with category
+                if (db.Products.Any(x => x.CategoryId == id))
+                {
+                    TempData["MyErrorMessage"] = "You cannot delete this category while there are products linked to it. Please delete all associated products first.";
+                    TempData["DeletionError"] = true;
+                    return RedirectToAction("Categories");
+                }
+                else
+                {
+                    // Get the category
+                    CategoryDTO dto = db.Categories.Find(id);
+                    db.Categories.Remove(dto);
+                    db.SaveChanges();
+                }
             }
             return RedirectToAction("Categories");
         }
@@ -139,7 +150,7 @@ namespace GuitarStore.Areas.Admin.Controllers
         [HttpPost]
         public ActionResult AddProduct(ProductVM model, HttpPostedFileBase file)
         {
-            
+
 
             // Check model state
             if (!ModelState.IsValid)
@@ -325,7 +336,7 @@ namespace GuitarStore.Areas.Admin.Controllers
         [HttpPost]
         public ActionResult EditProduct(ProductVM model, HttpPostedFileBase file)
         {
-            
+
 
             // Get product id
             int id = model.Id;
